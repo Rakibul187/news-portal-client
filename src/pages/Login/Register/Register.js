@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Register = () => {
-    const { createuser } = useContext(AuthContext)
+    const { createuser, updateUserProfile } = useContext(AuthContext)
     const navigate = useNavigate()
     const [error, setError] = useState('')
     const [accepted, setAccepted] = useState(false)
@@ -14,8 +14,8 @@ const Register = () => {
     const handleSignin = event => {
         event.preventDefault()
         const form = event.target
-        // const name = form.name.value;
-        // const photoURL = form.photoURL.value;
+        const name = form.name.value;
+        const photoURL = form.photoURL.value;
         const email = form.email.value
         const password = form.password.value
 
@@ -27,6 +27,7 @@ const Register = () => {
                 form.reset('')
                 navigate(from, { replace: true });
                 setError('')
+                handleUpdateUserProfile(name, photoURL)
             })
             .catch(error => {
                 console.error(error)
@@ -36,6 +37,17 @@ const Register = () => {
 
     const handleAccepted = event => {
         setAccepted(event.target.checked)
+    }
+
+
+    const handleUpdateUserProfile = (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
+        updateUserProfile(profile)
+            .then(() => { })
+            .then(er => setError(er.message))
     }
 
     return (

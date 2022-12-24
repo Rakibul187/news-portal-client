@@ -29,7 +29,7 @@ const Header = () => {
                             <Nav>
                                 {user?.uid ?
                                     <>
-                                        <span>{user.displayName}</span>
+                                        <span className='mt-1 d-none d-lg-block'>{user.displayName}</span>
                                         <Button onClick={handleSignOut} variant='secondary mx-2'>Logout</Button>
                                     </>
                                     :

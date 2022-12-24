@@ -1,12 +1,19 @@
 import React, { useContext } from 'react';
-import { Container, Image, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Image, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
 import { FaUserAstronaut } from "react-icons/fa";
 
 const Header = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleSignOut = () => {
+        logOut()
+            .then(() => { })
+            .then(e => console.error(e))
+    }
+
     return (
         <div>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light mb-4">
@@ -19,7 +26,18 @@ const Header = () => {
                             <Nav.Link href="#pricing">Pricing</Nav.Link>
                         </Nav>
                         <Nav>
-                            <Nav>{user?.uid && <span>{user.displayName}</span>}</Nav>
+                            <Nav>
+                                {user?.uid ?
+                                    <>
+                                        <span>{user.displayName}</span>
+                                        <Button onClick={handleSignOut} variant='secondary mx-2'>Logout</Button>
+                                    </>
+                                    :
+                                    <>
+                                        <Button variant='outline-primary mx-2'><Link to='/login'>Login</Link></Button>
+                                    </>
+                                }
+                            </Nav>
                         </Nav>
                         <Nav>
                             {

@@ -18,18 +18,18 @@ const AuthProvider = ({ children }) => {
     }, [])
 
     const createuser = (email, password) => {
-        createUserWithEmailAndPassword(auth, email, password)
+        return createUserWithEmailAndPassword(auth, email, password)
     }
     const googleSignIn = (provider) => {
-        signInWithPopup(auth, provider)
+        return signInWithPopup(auth, provider)
     }
 
     const signIn = (email, password) => {
-        signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
     const logOut = () => {
-        signOut(auth)
+        return signOut(auth)
     }
 
     const authInfo = {

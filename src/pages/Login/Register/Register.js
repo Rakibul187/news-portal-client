@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
@@ -6,6 +6,7 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 const Register = () => {
     const { createuser } = useContext(AuthContext)
     const navigate = useNavigate()
+    const [error, setError] = useState('')
 
     const handleSignin = event => {
         event.preventDefault()
@@ -19,17 +20,20 @@ const Register = () => {
             .then(result => {
                 const user = result.user
                 console.log(user)
-                form.reset()
+                form.reset('')
                 navigate('/')
+                setError('')
             })
-            .catch(error => console.error(error)
-            )
+            .catch(error => {
+                console.error(error)
+                setError(error.message)
+            })
     }
     return (
         <div>
             <Form onSubmit={handleSignin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Ypur Name</Form.Label>
+                    <Form.Label>Your Name</Form.Label>
                     <Form.Control name='name' type="text" placeholder="Your Name" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -47,8 +51,11 @@ const Register = () => {
                 <Button variant="primary" type="submit">
                     Register
                 </Button>
+                <Form.Text>
+                    <span className='text-danger ms-2'>{error}</span>
+                    <p>Already have an account? Please <Link to='/login'>Login</Link></p>
+                </Form.Text>
             </Form>
-            <p>Already have an account? Please <Link to='/login'>Login</Link></p>
         </div>
     );
 };

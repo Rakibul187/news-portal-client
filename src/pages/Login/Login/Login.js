@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
@@ -6,6 +6,7 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 const Login = () => {
     const { signIn } = useContext(AuthContext)
     const navigate = useNavigate()
+    const [error, setError] = useState('')
 
     const handleLogin = event => {
         event.preventDefault()
@@ -19,8 +20,12 @@ const Login = () => {
                 console.log(user)
                 form.reset()
                 navigate('/')
+                setError('')
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                console.error(error)
+                setError(error.message)
+            })
 
     }
     return (
@@ -37,8 +42,11 @@ const Login = () => {
                 <Button variant="primary" type="submit">
                     Login
                 </Button>
+                <Form.Text>
+                    <span className='text-danger ms-2'>{error}</span>
+                    <p>New to news portal? Please <Link to='/register'>Register</Link></p>
+                </Form.Text>
             </Form>
-            <p>New to news portal? Please <Link to='/register'>Register</Link></p>
         </div>
     );
 };

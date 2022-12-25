@@ -1,10 +1,12 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { useLoaderData } from 'react-router-dom';
+import useTitle from '../../Hooks/useTitle';
 
 const News = () => {
     const news = useLoaderData()
     const { title, details, image_url, author, total_view } = news
+    useTitle('News Details')
 
     return (
         <Card className="mb-5">

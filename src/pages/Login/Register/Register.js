@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import useTitle from '../../../Hooks/useTitle';
 
 const Register = () => {
     const { createuser, updateUserProfile } = useContext(AuthContext)
@@ -10,6 +11,7 @@ const Register = () => {
     const [accepted, setAccepted] = useState(false)
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
+    useTitle('Register')
 
     const handleSignin = event => {
         event.preventDefault()

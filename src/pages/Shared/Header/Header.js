@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import LeftSideNav from '../LeftSideNav/LeftSideNav';
 import { FaUserAstronaut } from "react-icons/fa";
+import '../Header/Header.css'
 
 const Header = () => {
     const { user, logOut } = useContext(AuthContext)
@@ -18,7 +19,7 @@ const Header = () => {
         <div>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light mb-4">
                 <Container>
-                    <Navbar.Brand><Link to='/'>News Portal</Link></Navbar.Brand>
+                    <Navbar.Brand className='aaa'><Link to='/'>News Portal</Link></Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
@@ -26,7 +27,7 @@ const Header = () => {
                             <Nav.Link href="#pricing">Pricing</Nav.Link>
                         </Nav>
                         <Nav>
-                            <Nav>
+                            <Nav className='aaa'>
                                 {user?.uid ?
                                     <>
                                         <span className='mt-1 d-none d-lg-block'>{user.displayName}</span>
